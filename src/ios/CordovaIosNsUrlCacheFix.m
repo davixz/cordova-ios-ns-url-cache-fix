@@ -12,11 +12,12 @@
 
 - (void)pluginInitialize
 {
-    int nsUrlCacheMemoryCapacity = [self.commandDelegate.settings objectForKey:[@"nsUrlCacheMemoryCapacity" intValue]];
-    nsUrlCacheMemoryCapacity = nsUrlCacheMemoryCapacity == nil ? 4 : nsUrlCacheMemoryCapacity;
 
-    int nsUrlCacheDiskCapacity = [self.commandDelegate.settings objectForKey:[@"nsUrlCacheDiskCapacity" intValue]];
-    nsUrlCacheDiskCapacity = nsUrlCacheDiskCapacity == nil ? 32 : nsUrlCacheDiskCapacity;
+    id nsUrlCacheMemoryCapacityString = [self.commandDelegate.settings objectForKey: [@"nsUrlCacheMemoryCapacity" lowercaseString]];
+    int nsUrlCacheMemoryCapacity = nsUrlCacheMemoryCapacityString == nil ? 4 : [nsUrlCacheMemoryCapacityString intValue];
+
+    id nsUrlCacheDiskCapacityString = [self.commandDelegate.settings objectForKey: [@"nsUrlCacheDiskCapacity" lowercaseString]];
+    int nsUrlCacheDiskCapacity = nsUrlCacheDiskCapacityString == nil ? 32 : [nsUrlCacheDiskCapacityString intValue];
 
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:nsUrlCacheMemoryCapacity * 1024 * 1024 diskCapacity:nsUrlCacheDiskCapacity * 1024 * 1024 diskPath:nil]; 
 
